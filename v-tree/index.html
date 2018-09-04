@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>v-tree</title>
+  <link rel="stylesheet" href="index.css">
+</head>
+<body>
+  <script type="text/x-template" id="item-template">
+  <li>
+    <div :class="{bold: isFolder}">
+      <input type="checkbox">
+      {{ model.name }}
+      <span v-if="isFolder" @click="toggle">[{{ open ? '-' : '+' }}]</span>
+    </div>
+    <ul v-show="open" v-if="isFolder">
+      <item
+        class="item"
+        v-for="(model, index) in model.children"
+        :key="index"
+        :model="model">
+      </item>
+    </ul>
+  </li>
+</script>
+
+<p>(You can double click on an item to turn it into a folder.)</p>
+
+<!-- the demo root element -->
+<ul id="demo">
+  <item
+    class="item"
+    :model="treeData">
+  </item>
+</ul>
+
+  <script src="https://unpkg.com/vue@2.5.17/dist/vue.js"></script>
+  <script src="index.js"></script>
+</body>
+</html>
